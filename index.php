@@ -1,3 +1,29 @@
+<?php
+//votos sim
+$con = mysqli_connect('localhost','root','', 'enquete');
+$sql="SELECT quant_votos_sim FROM enquete";
+$retorno=mysqli_query($con, $sql);
+$dados=mysqli_fetch_assoc($retorno);
+$votossim = $dados['quant_votos_sim'];
+
+//votos não
+$sql="SELECT quant_votos_nao FROM enquete";
+$retorno=mysqli_query($con, $sql);
+$dados=mysqli_fetch_assoc($retorno);
+$votosnao = $dados['quant_votos_nao'];
+
+//votos um pouco 
+$sql="SELECT quant_votos_um_pouco FROM enquete";
+$retorno=mysqli_query($con, $sql);
+$dados=mysqli_fetch_assoc($retorno);
+$votosumpouco = $dados['quant_votos_um_pouco'];
+
+//quantidade de votos
+
+$totalvotos = $votossim + $votosnao + $votosumpouco;
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -76,24 +102,23 @@
             </ul>            
            
             <ul>
+                <section class="enquete">
                 <fieldset>  
                 <h1>Você gostou do novo site?</h1>
-                <form action="/enviar-resposta" method="POST">
+                <form method="GET" action="envia_enquete.php">
                     <!-- Opções da enquete -->
-                    <label>
-                        <input type="radio" name="escolha" value="Sim">
-                        Sim!
-                    </label><br>
-                    <label>
-                        <input type="radio" name="escolha" value="Nao">
-                        Não!
-                    </label><br>
-                    <label>
-                        <input type="radio" name="escolha" value="Um pouco">
-                        Um pouco...
-                    </label><br>
-                    <!-- Botão para enviar -->
-                    <button type="submit">Votar</button>
+                        <input type="radio" name="voto" value="Sim">Sim!<br> <!-- o nome deve ser igual para não poder dar dois votos ao mesmo tempo -->
+                        <input type="radio" name="voto" value="Nao">Não!<br>
+                        <input type="radio" name="voto" value="Um pouco">Um pouco...<br>
+                    <input class="botao" type="submit" value="Votar">
+                    <br><hr>
+                    <h4>Resultado da enquete<h4>
+                        <p>Total de votos: <?php echo $totalvotos;?></p>
+                        <p>Sim! <?php echo $votossim;?></p>
+                        <p>Não! <?php echo $votosnao;?></p>
+                        <p>Um pouco... <?php echo $votosumpouco;?></p>
+                    </section>
+
                 </form>
                 </fieldset>
                 <br>
