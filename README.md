@@ -50,6 +50,8 @@ Imagens devem conter legendas e legendas ocultas para rastreio no google imagens
 
 Sprint 1 
 
+Sprint Backlog:  
+
 Daily Scrum 1: - Desenvolvida estrutura básica do site com menu, cabeçalho, rodapé, conteúdo principal e conteúdos relacionados (aside); 
 
 		- Folha de estilo (CSS) criada e site estilizado; 
@@ -66,7 +68,21 @@ Daily Scrum 1: - Desenvolvida estrutura básica do site com menu, cabeçalho, ro
 
 		- Inicio da documentação. 
 
-Daily Scrum 2:  
+Daily Scrum 2: - Implementado Embed do Bandcamp no menu; 
+
+- Melhorias na estilização do site;  
+
+- Páginas Downloads, Letras de nossas músicas, Galeria de fotos e Onde nos ouvir atualizadas; 
+
+	- Testes realizados em tempo real; 
+
+	- Sincronização com repositório remoto; 
+
+	- Desenvolvimento da documentação. 
+
+Daily Scrum 3: 
+
+	 
 
  
 
