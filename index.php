@@ -48,27 +48,27 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
                 <legend><b>Menu</b></legend>
 
                 <li>
-                    <a href="./index.html">Página inicial</a>
+                    <a href="./index.php">Página inicial</a>
                 </li>
 
                 <li>
-                    <a href="./app/sobre_nos.html">Sobre nós</a>
+                    <a href="./app/sobre_nos.php">Sobre nós</a>
                 </li>
 
                 <li>
-                    <a href="./app/downloads.html">Downloads</a>
+                    <a href="./app/downloads.php">Downloads</a>
                 </li>
 
                 <li>
-                    <a href="./app/letras.html">Letras de nossas músicas</a>
+                    <a href="./app/letras.php">Letras de nossas músicas</a>
                 </li>
 
                 <li>
-                    <a href="./app/fotos.html">Galeria de fotos</a>
+                    <a href="./app/fotos.php">Galeria de fotos</a>
                 </li>
 
                 <li>
-                    <a href="./app/onde_ouvir.html">Onde nos ouvir</a>
+                    <a href="./app/onde_ouvir.php">Onde nos ouvir</a>
                 </li>
                 <br>
                 <hr>
@@ -113,10 +113,10 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
                     <input class="botao" type="submit" value="Votar">
                     <br><hr>
                     <h4>Resultado da enquete<h4>
-                        <p>Total de votos: <?php echo $totalvotos;?></p>
                         <p>Sim! <?php echo $votossim;?></p>
                         <p>Não! <?php echo $votosnao;?></p>
                         <p>Um pouco... <?php echo $votosumpouco;?></p>
+                        <p>Total de votos: <?php echo $totalvotos;?></p>
                     </section>
 
                 </form>
