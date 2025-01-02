@@ -138,7 +138,12 @@ main a {
         height: auto;   /* Mantém a proporção da imagem */
         object-fit: cover; /* Ajusta a imagem para cobrir o container sem distorção */
     }
-    
+
+    .sobre-nos ul {
+        color: white; /* Corrige a cor do texto */
+        background-color: black; /* Se necessário, ajuste o fundo */
+        padding: 10px;
+    }
 
 h1 {
     margin-top: 0; /* Remove qualquer margem extra no topo do título */
