@@ -24,6 +24,103 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
 
 ?>
 
+<?php
+/*foi utilizado o seguinte passo a passo para que as tags não se repetissem durante os f5:
+iniciar sessão apenas uma vez, pois se não controlar a sessão ele contibilizava indefinidademente;
+no mysql, resetar o banco de daddos desativando a foreign key:
+SET FOREIGN_KEY_CHECKS = 0;  -- Desabilita a verificação de chave estrangeira
+DELETE FROM pagina_tags;     -- Exclui os dados relacionados
+DELETE FROM paginas;         -- Exclui as páginas
+DELETE FROM tags;            -- Exclui as tags
+SET FOREIGN_KEY_CHECKS = 1;  -- Reabilita a verificação de chave estrangeira
+
+depois:
+DELETE FROM pagina_tags;  -- Exclui as associações de tags com páginas
+DELETE FROM paginas;      -- Exclui as páginas
+DELETE FROM tags;         -- Exclui as tags
+
+A LINHA:
+ALTER TABLE paginas ADD UNIQUE (titulo);
+
+IMPEDE QUE DUPLIQUE OS DADOS;
+*/
+
+// Inicia a sessão para controlar a execução
+session_start();
+
+// Conexão com o banco de dados
+$con = mysqli_connect('localhost', 'root', '', 'tags');
+
+// Verificar se a conexão foi bem-sucedida
+if (!$con) {
+    // Em caso de falha na conexão, você pode logar o erro ou redirecionar o usuário
+    error_log("Conexão falhou: " . mysqli_connect_error());
+    exit;
+}
+
+// Verificar se a página já foi inserida nesta sessão
+if (!isset($_SESSION['homepage_inserida'])) {
+    // Inserção da página
+    $titulo = 'Homepage';
+    $conteudo = 'Homepage do site da Azul Turquesa';
+    $tipo = 'homepage';
+    
+    // Preparando a query para evitar SQL injection
+    $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo) VALUES (?, ?)");
+    mysqli_stmt_bind_param($stmt, 'ss', $titulo, $conteudo);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        // Caso ocorra erro ao inserir a página, logar o erro
+        error_log("Erro ao inserir a página: " . mysqli_error($con));
+    }
+    
+    $pagina_id = mysqli_insert_id($con);
+    
+    // Definir a lista de tags a serem associadas
+    $tags = ['homepage do site azul turquesa', 'posts'];
+    
+    foreach ($tags as $tag_nome) {
+        // Verificar se a tag já existe
+        $stmt = mysqli_prepare($con, "SELECT id FROM tags WHERE nome = ?");
+        mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+        
+        if (mysqli_stmt_num_rows($stmt) == 0) {
+            // Inserir a tag se não existir
+            $stmt = mysqli_prepare($con, "INSERT INTO tags (nome) VALUES (?)");
+            mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+            if (!mysqli_stmt_execute($stmt)) {
+                // Caso ocorra erro ao inserir a tag, logar o erro
+                error_log("Erro ao inserir a tag '$tag_nome': " . mysqli_error($con));
+            }
+            $tag_id = mysqli_insert_id($con);
+        } else {
+            // Obter o ID da tag existente
+            mysqli_stmt_bind_result($stmt, $tag_id);
+            mysqli_stmt_fetch($stmt);
+        }
+
+        // Associar a página com a tag
+        $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
+        mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
+        if (!mysqli_stmt_execute($stmt)) {
+            // Caso ocorra erro ao associar a página com a tag, logar o erro
+            error_log("Erro ao associar a página com a tag '$tag_nome': " . mysqli_error($con));
+        }
+    }
+
+    // Marcar que a página foi inserida nesta sessão
+    $_SESSION['homepage_inserida'] = true;
+} else {
+    // Se a página já foi inserida, não faz nada
+    error_log("A página 'Homepage' já foi inserida nesta sessão!");
+}
+
+// Fechar a conexão
+mysqli_close($con);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -132,7 +229,14 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
         
         </div>
      </nav>
-    <main>Principal</main>
+    <main>Principal
+
+        
+<footer>
+    <!-- Conteúdo do footer -->
+</footer>
+
+    </main>
     <aside>Relacionados</aside>
     <footer> <p>&copy; 2025 Azul Turquesa. Todos os direitos reservados.</p></footer>
 

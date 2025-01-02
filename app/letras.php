@@ -24,6 +24,83 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
 
 ?>
 
+<?php
+// Inicia a sessão para controlar a execução
+session_start();
+
+// Conexão com o banco de dados
+$con = mysqli_connect('localhost', 'root', '', 'tags');
+
+// Verificar se a conexão foi bem-sucedida
+if (!$con) {
+    // Logar o erro em vez de mostrar para o usuário
+    error_log("Conexão falhou: " . mysqli_connect_error());
+    exit; // Interrompe a execução caso a conexão falhe
+}
+
+// Verificar se a página "Letras de nossas músicas" já foi inserida nesta sessão
+if (!isset($_SESSION['letras_musicas_inserida'])) {
+    // Inserção da página "Letras de nossas músicas"
+    $titulo = 'Letras de nossas músicas';
+    $conteudo = 'Letras das músicas da Azul Turquesa';
+    
+    // Preparando a query para evitar SQL injection
+    $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo) VALUES (?, ?)");
+    mysqli_stmt_bind_param($stmt, 'ss', $titulo, $conteudo);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        // Logar o erro em vez de mostrar para o usuário
+        error_log("Erro ao inserir a página: " . mysqli_error($con));
+        exit; // Interrompe a execução em caso de erro
+    }
+    
+    $pagina_id = mysqli_insert_id($con);
+    
+    // Lista de tags a serem associadas à página
+    $tags = ['letras da azul turquesa', 'musicas da azul turquesa', 'azul turquesa'];
+    
+    // Inserir tags e associá-las à página
+    foreach ($tags as $tag_nome) {
+        // Preparar a consulta para buscar a tag
+        $stmt = mysqli_prepare($con, "SELECT id FROM tags WHERE nome = ?");
+        mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+        
+        if (mysqli_stmt_num_rows($stmt) == 0) {
+            // Inserir a tag se não existir
+            $stmt = mysqli_prepare($con, "INSERT INTO tags (nome) VALUES (?)");
+            mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+            if (!mysqli_stmt_execute($stmt)) {
+                // Logar o erro em vez de mostrar para o usuário
+                error_log("Erro ao inserir a tag '$tag_nome': " . mysqli_error($con));
+            }
+            $tag_id = mysqli_insert_id($con);
+        } else {
+            // Obter o ID da tag existente
+            mysqli_stmt_bind_result($stmt, $tag_id);
+            mysqli_stmt_fetch($stmt);
+        }
+
+        // Associar a página com a tag
+        $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
+        mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
+        if (!mysqli_stmt_execute($stmt)) {
+            // Logar o erro em vez de mostrar para o usuário
+            error_log("Erro ao associar a página com a tag '$tag_nome': " . mysqli_error($con));
+        }
+    }
+
+    // Marcar que a página foi inserida nesta sessão
+    $_SESSION['letras_musicas_inserida'] = true;
+} else {
+    // Se a página já foi inserida, não faz nada
+}
+
+// Fechar a conexão
+mysqli_close($con);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -938,7 +1015,7 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
              </p>
 
         </div>
-
+    
     </main>
     <aside>Relacionados</aside>
     <footer> <p>&copy; 2025 Azul Turquesa. Todos os direitos reservados.</p></footer>

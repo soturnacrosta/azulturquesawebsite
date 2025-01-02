@@ -24,6 +24,73 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
 
 ?>
 
+<?php
+// Inicia a sessão para controlar a execução
+session_start();
+
+// Conexão com o banco de dados
+$con = mysqli_connect('localhost', 'root', '', 'tags');
+
+// Verificar se a conexão foi bem-sucedida
+if (!$con) {
+    die("Conexão falhou: " . mysqli_connect_error());
+}
+
+// Verificar se a página "Onde nos ouvir" já foi inserida nesta sessão
+if (!isset($_SESSION['onde_nos_ouvir_inserida'])) {
+    // Inserção da página "Onde nos ouvir"
+    $titulo = 'Onde nos ouvir';
+    $conteudo = 'Onde ouvir a Azul Turquesa';
+    $tipo = 'links';
+    
+    // Preparando a query para evitar SQL injection
+    $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo, tipo) VALUES (?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, 'sss', $titulo, $conteudo, $tipo);
+
+    // Executa a inserção da página e verifica se deu certo
+    if (mysqli_stmt_execute($stmt)) {
+        $pagina_id = mysqli_insert_id($con);
+        
+        // Lista de tags a serem associadas à página
+        $tags = ['onde ouvir azul turquesa', 'links turquesa', 'onde achar azul turquesa', 'azul turquesa spotify', 'azul turquesa youtube'];
+        
+        // Inserir tags e associá-las à página
+        foreach ($tags as $tag_nome) {
+            // Preparar a consulta para buscar a tag
+            $stmt = mysqli_prepare($con, "SELECT id FROM tags WHERE nome = ?");
+            mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            
+            if (mysqli_stmt_num_rows($stmt) == 0) {
+                // Inserir a tag se não existir
+                $stmt = mysqli_prepare($con, "INSERT INTO tags (nome) VALUES (?)");
+                mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+                mysqli_stmt_execute($stmt);
+            }
+
+            // Obter o ID da tag (nova ou existente)
+            mysqli_stmt_bind_result($stmt, $tag_id);
+            mysqli_stmt_fetch($stmt);
+
+            // Associar a página com a tag
+            $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
+            mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
+            mysqli_stmt_execute($stmt);
+        }
+
+        // Marcar que a página foi inserida nesta sessão
+        $_SESSION['onde_nos_ouvir_inserida'] = true;
+    }
+
+    // Não faz nada se a inserção falhar (nenhuma ação de erro ou falha)
+}
+
+// Fechar a conexão
+mysqli_close($con);
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -157,7 +224,50 @@ $totalvotos = $votossim + $votosnao + $votosumpouco;
                 <a href="./downloads.html" alt="Página de Download">Página de Downloads</a> 
             </p>
     </div>
+            
+            <footer>
+                <?php
+                    // Conexão com o banco de dados
+                    $con = mysqli_connect('localhost', 'root', '', 'tags');
 
+                    // Verificar se a conexão foi bem-sucedida
+                    if (!$con) {
+                        die("Conexão falhou: " . mysqli_connect_error());
+                    }
+
+                    // Inserção da página
+                    $titulo = 'Onde nos ouvir';
+                    $conteudo = 'Links para ouvir Azul Turquesa';
+                    $sql = "INSERT INTO paginas (titulo, conteudo) VALUES ('$titulo', '$conteudo')";
+                    mysqli_query($con, $sql);
+                    $pagina_id = mysqli_insert_id($con); // Obtém o ID da página inserida
+
+                    // Definir a tag que você deseja associar à página
+                    $tag_nome = 'ondeouvir'; // Exemplo de tag
+
+                    // Verificar se a tag já existe
+                    $sql = "SELECT id FROM tags WHERE nome = '$tag_nome'";
+                    $result = mysqli_query($con, $sql);
+
+                    if (mysqli_num_rows($result) == 0) {
+                        // Caso a tag não exista, insere a nova tag
+                        $sql = "INSERT INTO tags (nome) VALUES ('$tag_nome')";
+                        mysqli_query($con, $sql);
+                        $tag_id = mysqli_insert_id($con); // Obtém o ID da tag inserida
+                    } else {
+                        // Caso a tag já exista, obtém o ID da tag
+                        $row = mysqli_fetch_assoc($result);
+                        $tag_id = $row['id'];
+                    }
+
+                    // Associar a página com a tag
+                    $sql = "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES ($pagina_id, $tag_id)";
+                    mysqli_query($con, $sql);
+
+                    // Fechar a conexão
+                    mysqli_close($con);
+                    ?>
+                </footer>
 
     </main>
     <aside>Relacionados</aside>
