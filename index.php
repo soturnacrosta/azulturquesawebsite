@@ -236,7 +236,7 @@ mysqli_close($con);
 
             <h2>Sobre nós</h2><br>
             <div class="mainpage-container1">
-                <!--a primeira postagem tem sua foto maior que as outras como padrão -- >
+                <!--a primeira postagem tem sua foto maior que as outras como padrão -->
                 <img src="./assets/img/materias/sobre_nos/soturna-azulTurquesa.jpg" alt="Soturna Crosta da banda de black metal paraibana Azul Turquesa"  width="500" height="auto" class="left-img"><br>
                 <p>Azul Turquesa é uma one man band paraibana de Doom e Black Metal que experimenta novas formas de fazer som a cada lançamento. Explorando o contraste entre a brutalidade e crueza do Black Metal e
                     a beleza e soturnez do Doom Metal, Azul Turquesa aborda questões existenciais e depressão, além de romances e histórias de horror.<br>
