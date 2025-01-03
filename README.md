@@ -50,23 +50,37 @@ Imagens devem conter legendas e legendas ocultas para rastreio no google imagens
 
 Sprint 1 
 
-Sprint Backlog:  
+Sprint Backlog: Nessa Sprint serão entregues a estrutura de texto do site e sua estilização, bem como as funções de enquete e tags de páginas. Para tal, será estudado e pesquisado na internet esses assuntos para adquirir conhecimento, além de discutir com IA. 
+
+Os itens do Product Backlog para essa Sptint são: 
+
+- Cabeçalho com banner da banda; 
+
+- Menu lateral interativo: Sessões 1. Página inicial; 2. Sobre a banda; 3. Downloads; 4. Letras de nossas músicas; 5. Galeria de fotos; 6. Onde nos ouvir. Botão do Spotify; Botão do Instagram; Botão do Twitter; Botão para seguir Facebook, Youtube e Instagram; Enquete; Contato profissional; 
+
+- Imagens devem conter legendas e legendas ocultas para rastreio no google imagens. 
+
+ 
+
+Sprint Planning: Essa Sprint marca o início do projeto, onde será criado a estrutura de texto e a parte gráfica do site, além de algumas funções backend. Para além disso, serão preenchidas as páginas principais do site com conteúdo. Essa é a base do funcionamento do site, uma vez que ele será interativo e carregará as matérias da banda. 
+
+As funções serão feitas através de programação HTML, CSS, PHP e uso de banco de dados MYSQL em servidor XAMPP.  
 
 Daily Scrum 1: - Desenvolvida estrutura básica do site com menu, cabeçalho, rodapé, conteúdo principal e conteúdos relacionados (aside); 
 
-		- Folha de estilo (CSS) criada e site estilizado; 
+- Folha de estilo (CSS) criada e site estilizado; 
 
-		- Criada enquete em HTML e código incorporado do Spotify no container de menu; 
+- Criada enquete em HTML e código incorporado do Spotify no container de menu; 
 
-		- Projeto organizado e iniciado em servidor APACHE pelo XAMPP; 
+- Projeto organizado e iniciado em servidor APACHE pelo XAMPP; 
 
-		- Criação de páginas HTML fundamentais do site e o deslocamento entre elas; 
+- Criação de páginas HTML fundamentais do site e o deslocamento entre elas; 
 
-		- Edição da página Sobre nós para observar formatação do site; 
+- Edição da página Sobre nós para observar formatação do site; 
 
-		- Sincronização com repositório remoto; 
+- Sincronização com repositório remoto; 
 
-		- Inicio da documentação. 
+- Inicio da documentação. 
 
 Daily Scrum 2: - Implementado Embed do Bandcamp no menu; 
 
@@ -74,15 +88,43 @@ Daily Scrum 2: - Implementado Embed do Bandcamp no menu;
 
 - Páginas Downloads, Letras de nossas músicas, Galeria de fotos e Onde nos ouvir atualizadas; 
 
-	- Testes realizados em tempo real; 
+- Testes realizados em tempo real; 
 
-	- Sincronização com repositório remoto; 
+- Sincronização com repositório remoto; 
 
-	- Desenvolvimento da documentação. 
+- Desenvolvimento da documentação. 
 
-Daily Scrum 3: 
+Daily Scrum 3: - Pesquisas sobre banco de dados e PHP; 
 
-	 
+		- Início da construção do banco de dados via MYSQL; 
+
+		- O banco de dados da enquete foi escrito através do PHPMyAdmin, com as variáveis - inicializadas manualmente. Está operando adequadamente limitando um voto por IP; 
+
+		- Banco de dados para função de tags de páginas do site implementada, banco de dados feito através de PHPMyAdmin; 	          	 
+
+- Páginas associadas às suas tags; 
+
+		- Sincronização com repositório remoto; 
+
+		- Desenvolvimento da documentação. 
+
+Sprint Review: Nessa Sprint foram entregues a estrutura em texto e gráfica do site, as matérias básicas foram repassadas para ele, os bancos de dados e algumas funções backend foram implementadas. Daqui para frente, o objetivo é adicionar mais funções backend do Product Backlog.  
+
+Sprint Retrospective: Os maiores problemas encontrados no desenvolvimento durante a Sprint estavam relacionados ao banco de dados e à estilização via CSS.  Pesquisar online e ver vídeos sobre um tema que não domina foi uma ótima resolução de problemas. 
+
+Incremento: - Estrutura HTML e CSS do site; 
+
+		- Páginas fundamentais do site; 
+
+		- Bancos de dados e páginas em PHP; 
+
+		- Repositório remoto; 
+
+		- Features no menu; 
+
+		- Menu interativo. 
+
+ 
 
  
 
