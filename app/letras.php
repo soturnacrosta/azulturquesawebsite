@@ -122,7 +122,6 @@ if (!isset($_SESSION['letras_musicas_inserida'])) {
 mysqli_close($con);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
 

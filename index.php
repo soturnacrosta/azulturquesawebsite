@@ -44,7 +44,6 @@ ALTER TABLE paginas ADD UNIQUE (titulo);
 
 IMPEDE QUE DUPLIQUE OS DADOS;
 */
-
 // Inicia a sessão para controlar a execução
 session_start();
 
@@ -53,68 +52,62 @@ $con = mysqli_connect('localhost', 'root', '', 'tags');
 
 // Verificar se a conexão foi bem-sucedida
 if (!$con) {
-    // Em caso de falha na conexão, você pode logar o erro ou redirecionar o usuário
     error_log("Conexão falhou: " . mysqli_connect_error());
     exit;
 }
 
-// Verificar se a página já foi inserida nesta sessão
+// Verificar se a página "Homepage" já foi inserida nesta sessão
 if (!isset($_SESSION['homepage_inserida'])) {
-    // Inserção da página
+    // Verificar se a página já existe no banco de dados para evitar duplicidade
     $titulo = 'Homepage';
     $conteudo = 'Homepage do site da Azul Turquesa';
     $tipo = 'homepage';
-    
-    // Preparando a query para evitar SQL injection
-    $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo) VALUES (?, ?)");
-    mysqli_stmt_bind_param($stmt, 'ss', $titulo, $conteudo);
-    
-    if (!mysqli_stmt_execute($stmt)) {
-        // Caso ocorra erro ao inserir a página, logar o erro
-        error_log("Erro ao inserir a página: " . mysqli_error($con));
-    }
-    
-    $pagina_id = mysqli_insert_id($con);
-    
-    // Definir a lista de tags a serem associadas
-    $tags = ['homepage do site azul turquesa', 'posts'];
-    
-    foreach ($tags as $tag_nome) {
-        // Verificar se a tag já existe
-        $stmt = mysqli_prepare($con, "SELECT id FROM tags WHERE nome = ?");
-        mysqli_stmt_bind_param($stmt, 's', $tag_nome);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-        
-        if (mysqli_stmt_num_rows($stmt) == 0) {
-            // Inserir a tag se não existir
-            $stmt = mysqli_prepare($con, "INSERT INTO tags (nome) VALUES (?)");
-            mysqli_stmt_bind_param($stmt, 's', $tag_nome);
-            if (!mysqli_stmt_execute($stmt)) {
-                // Caso ocorra erro ao inserir a tag, logar o erro
-                error_log("Erro ao inserir a tag '$tag_nome': " . mysqli_error($con));
+
+    $stmt = mysqli_prepare($con, "SELECT id FROM paginas WHERE titulo = ?");
+    mysqli_stmt_bind_param($stmt, 's', $titulo);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    if (mysqli_stmt_num_rows($stmt) == 0) {
+        // Inserir a página caso não exista
+        $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo, tipo) VALUES (?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, 'sss', $titulo, $conteudo, $tipo);
+        if (mysqli_stmt_execute($stmt)) {
+            $pagina_id = mysqli_insert_id($con);
+
+            // Lista de tags a serem associadas à página
+            $tags = ['homepage do site azul turquesa', 'posts'];
+
+            foreach ($tags as $tag_nome) {
+                // Verificar se a tag já existe
+                $stmt = mysqli_prepare($con, "SELECT id FROM tags WHERE nome = ?");
+                mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) == 0) {
+                    // Inserir a tag se não existir
+                    $stmt = mysqli_prepare($con, "INSERT INTO tags (nome) VALUES (?)");
+                    mysqli_stmt_bind_param($stmt, 's', $tag_nome);
+                    if (mysqli_stmt_execute($stmt)) {
+                        $tag_id = mysqli_insert_id($con);
+                    }
+                } else {
+                    // Obter o ID da tag existente
+                    mysqli_stmt_bind_result($stmt, $tag_id);
+                    mysqli_stmt_fetch($stmt);
+                }
+
+                // Associar a página com a tag
+                $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
+                mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
+                mysqli_stmt_execute($stmt);
             }
-            $tag_id = mysqli_insert_id($con);
-        } else {
-            // Obter o ID da tag existente
-            mysqli_stmt_bind_result($stmt, $tag_id);
-            mysqli_stmt_fetch($stmt);
-        }
 
-        // Associar a página com a tag
-        $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
-        mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
-        if (!mysqli_stmt_execute($stmt)) {
-            // Caso ocorra erro ao associar a página com a tag, logar o erro
-            error_log("Erro ao associar a página com a tag '$tag_nome': " . mysqli_error($con));
+            // Marcar que a página foi inserida nesta sessão
+            $_SESSION['homepage_inserida'] = true;
         }
     }
-
-    // Marcar que a página foi inserida nesta sessão
-    $_SESSION['homepage_inserida'] = true;
-} else {
-    // Se a página já foi inserida, não faz nada
-    error_log("A página 'Homepage' já foi inserida nesta sessão!");
 }
 
 // Fechar a conexão
