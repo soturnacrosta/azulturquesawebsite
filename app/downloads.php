@@ -39,7 +39,7 @@ if (!$con) {
 }
 
 // Verificar se a página já foi inserida nesta sessão
-if (!isset($_SESSION['pagina_inserida'])) {
+if (!isset($_SESSION['downloads_inserida'])) {
     // Inserção da página
     $titulo = 'Downloads';
     $conteudo = 'Downloads das músicas da Azul Turquesa';
@@ -91,7 +91,7 @@ if (!isset($_SESSION['pagina_inserida'])) {
     }
 
     // Marcar que a página foi inserida nesta sessão
-    $_SESSION['pagina_inserida'] = true;
+    $_SESSION['downloads_inserida'] = true;
 } else {
     // Se a página já foi inserida, não faz nada
 }

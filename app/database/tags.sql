@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 03/01/2025 às 00:22
+-- Tempo de geração: 03/01/2025 às 17:57
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.0.30
 
@@ -40,12 +40,12 @@ CREATE TABLE `paginas` (
 --
 
 INSERT INTO `paginas` (`id`, `titulo`, `conteudo`, `data_criacao`, `tipo`) VALUES
-(60, 'Homepage', 'Homepage do site da Azul Turquesa', '2025-01-02 23:03:00', 'normal'),
-(61, 'Sobre nós', 'Sobre a banda Azul Turquesa', '2025-01-02 23:03:02', 'normal'),
-(62, 'Downloads', 'Downloads das músicas da Azul Turquesa', '2025-01-02 23:03:03', 'normal'),
-(63, 'Letras de nossas músicas', 'Letras das músicas da Azul Turquesa', '2025-01-02 23:03:05', 'normal'),
-(64, 'Galeria de fotos', 'Fotos promocionais da banda Azul Turquesa', '2025-01-02 23:03:07', 'galeria'),
-(65, 'Onde nos ouvir', 'Onde ouvir a Azul Turquesa', '2025-01-02 23:03:10', 'links');
+(233, 'Letras de nossas músicas', 'Letras das músicas da Azul Turquesa', '2025-01-03 16:53:43', 'normal'),
+(234, 'Galeria de fotos', 'Fotos promocionais da banda Azul Turquesa', '2025-01-03 16:53:55', 'galeria'),
+(235, 'Onde nos ouvir', 'Onde ouvir a Azul Turquesa', '2025-01-03 16:53:57', 'links'),
+(238, 'Homepage', 'Homepage do site da Azul Turquesa', '2025-01-03 16:55:39', 'normal'),
+(239, 'Sobre nós', 'Sobre a banda Azul Turquesa', '2025-01-03 16:55:48', 'normal'),
+(241, 'Downloads', 'Downloads das músicas da Azul Turquesa', '2025-01-03 16:56:36', 'normal');
 
 -- --------------------------------------------------------
 
@@ -63,28 +63,36 @@ CREATE TABLE `pagina_tags` (
 --
 
 INSERT INTO `pagina_tags` (`pagina_id`, `tag_id`) VALUES
-(60, 37),
-(60, 38),
-(61, 39),
-(61, 40),
-(61, 41),
-(61, 42),
-(62, 43),
-(62, 44),
-(62, 45),
-(63, 42),
-(63, 46),
-(63, 47),
-(64, 42),
-(64, 48),
-(64, 49),
-(64, 50),
-(64, 51),
-(65, 52),
-(65, 53),
-(65, 54),
-(65, 55),
-(65, 56);
+(233, 78),
+(233, 79),
+(233, 80),
+(234, 80),
+(234, 81),
+(234, 82),
+(234, 83),
+(234, 84),
+(238, 87),
+(238, 88),
+(239, 80),
+(239, 89),
+(239, 90),
+(239, 91),
+(241, 92),
+(241, 93),
+(241, 94);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `conteudo` text NOT NULL,
+  `data_publicacao` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -102,27 +110,23 @@ CREATE TABLE `tags` (
 --
 
 INSERT INTO `tags` (`id`, `nome`) VALUES
-(42, 'azul turquesa'),
-(51, 'Azul Turquesa Duo'),
-(55, 'azul turquesa spotify'),
-(56, 'azul turquesa youtube'),
-(45, 'baixar musicas da azul turquesa'),
-(41, 'curiosidades azul turquesa'),
-(43, 'downloads'),
-(44, 'downloads da azul turquesa'),
-(50, 'Efemera'),
-(48, 'fotos da azul turquesa'),
-(40, 'historia da azul turquesa'),
-(37, 'homepage do site azul turquesa'),
-(46, 'letras da azul turquesa'),
-(53, 'links turquesa'),
-(47, 'musicas da azul turquesa'),
-(54, 'onde achar azul turquesa'),
-(52, 'onde ouvir azul turquesa'),
-(57, 'ondeouvir'),
-(38, 'posts'),
-(39, 'sobre a azul turquesa'),
-(49, 'Soturna Crosta');
+(80, 'azul turquesa'),
+(84, 'Azul Turquesa Duo'),
+(94, 'baixar musicas da azul turquesa'),
+(91, 'curiosidades azul turquesa'),
+(92, 'downloads'),
+(93, 'downloads da azul turquesa'),
+(83, 'Efemera'),
+(81, 'fotos da azul turquesa'),
+(90, 'historia da azul turquesa'),
+(87, 'homepage do site azul turquesa'),
+(78, 'letras da azul turquesa'),
+(79, 'musicas da azul turquesa'),
+(85, 'onde ouvir azul turquesa'),
+(86, 'ondeouvir'),
+(88, 'posts'),
+(89, 'sobre a azul turquesa'),
+(82, 'Soturna Crosta');
 
 --
 -- Índices para tabelas despejadas
@@ -143,6 +147,12 @@ ALTER TABLE `pagina_tags`
   ADD KEY `tag_id` (`tag_id`);
 
 --
+-- Índices de tabela `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `tags`
 --
 ALTER TABLE `tags`
@@ -157,13 +167,19 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT de tabela `paginas`
 --
 ALTER TABLE `paginas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=242;
+
+--
+-- AUTO_INCREMENT de tabela `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- Restrições para tabelas despejadas
