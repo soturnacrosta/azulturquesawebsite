@@ -48,7 +48,7 @@ if (!isset($_SESSION['pagina_inserida'])) {
     
     // Preparando a query para evitar SQL injection
     $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo) VALUES (?, ?)");
-    mysqli_stmt_bind_param($stmt, 'sss', $titulo, $conteudo);
+    mysqli_stmt_bind_param($stmt, 'ss', $titulo, $conteudo);
     
     if (!mysqli_stmt_execute($stmt)) {
         // Caso ocorra erro ao inserir a página, logar o erro

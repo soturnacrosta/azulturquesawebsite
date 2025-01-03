@@ -156,9 +156,17 @@ aside {
     margin: 3px;
     flex: 0 0 150px;
     background: #000000; 
-    padding: 10px;
+    padding: 25px;
+    flex-direction: column; 
+    color: white !important;
    
 }
+
+    aside ul {
+        color: #c0afaf; /* Cor do texto */
+        font-size: 16px; /* Tamanho da fonte */
+        line-height: 1.5; /* Altura da linha */
+    }
 
 footer {
     display: flex;

@@ -64,38 +64,56 @@ function inserirTag($con, $tag_nome) {
 
 // Verificar se a página "Letras de nossas músicas" já foi inserida nesta sessão
 if (!isset($_SESSION['letras_musicas_inserida'])) {
-    // Inserção da página "Letras de nossas músicas"
+    // Definir o título e conteúdo
     $titulo = 'Letras de nossas músicas';
     $conteudo = 'Letras das músicas da Azul Turquesa';
 
-    // Preparando a query para evitar SQL injection
-    $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo) VALUES (?, ?)");
-    mysqli_stmt_bind_param($stmt, 'ss', $titulo, $conteudo);
-
-    if (!mysqli_stmt_execute($stmt)) {
-        error_log("Erro ao inserir a página: " . mysqli_error($con));
-        exit; // Interrompe a execução em caso de erro
+    // Verifique se as variáveis estão definidas corretamente
+    if (empty($titulo) || empty($conteudo)) {
+        error_log("Erro: O título ou conteúdo não foi definido corretamente.");
+        exit; // Interrompe a execução se as variáveis estiverem vazias
     }
 
-    $pagina_id = mysqli_insert_id($con);
+    // Verificar se a página já existe no banco de dados
+    $stmt = mysqli_prepare($con, "SELECT id FROM paginas WHERE titulo = ?");
+    mysqli_stmt_bind_param($stmt, 's', $titulo);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
 
-    // Lista de tags a serem associadas à página
-    $tags = ['letras da azul turquesa', 'musicas da azul turquesa', 'azul turquesa'];
+    if (mysqli_stmt_num_rows($stmt) == 0) {
+        // A página ainda não existe, pode ser inserida
+        // Preparando a query para evitar SQL injection
+        $stmt = mysqli_prepare($con, "INSERT INTO paginas (titulo, conteudo) VALUES (?, ?)");
+        mysqli_stmt_bind_param($stmt, 'ss', $titulo, $conteudo);
 
-    // Inserir tags e associá-las à página
-    foreach ($tags as $tag_nome) {
-        $tag_id = inserirTag($con, $tag_nome);
-
-        // Associar a página com a tag
-        $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
-        mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
         if (!mysqli_stmt_execute($stmt)) {
-            error_log("Erro ao associar a página com a tag '$tag_nome': " . mysqli_error($con));
+            error_log("Erro ao inserir a página: " . mysqli_error($con));
+            exit; // Interrompe a execução em caso de erro
         }
-    }
 
-    // Marcar que a página foi inserida nesta sessão
-    $_SESSION['letras_musicas_inserida'] = true;
+        $pagina_id = mysqli_insert_id($con);
+
+        // Lista de tags a serem associadas à página
+        $tags = ['letras da azul turquesa', 'musicas da azul turquesa', 'azul turquesa'];
+
+        // Inserir tags e associá-las à página
+        foreach ($tags as $tag_nome) {
+            $tag_id = inserirTag($con, $tag_nome);
+
+            // Associar a página com a tag
+            $stmt = mysqli_prepare($con, "INSERT INTO pagina_tags (pagina_id, tag_id) VALUES (?, ?)");
+            mysqli_stmt_bind_param($stmt, 'ii', $pagina_id, $tag_id);
+            if (!mysqli_stmt_execute($stmt)) {
+                error_log("Erro ao associar a página com a tag '$tag_nome': " . mysqli_error($con));
+            }
+        }
+
+        // Marcar que a página foi inserida nesta sessão
+        $_SESSION['letras_musicas_inserida'] = true;
+    } else {
+        // A página já existe, não faz nada
+        error_log("A página '$titulo' já existe no banco de dados.");
+    }
 } else {
     // Se a página já foi inserida, não faz nada
 }
@@ -103,6 +121,7 @@ if (!isset($_SESSION['letras_musicas_inserida'])) {
 // Fechar a conexão
 mysqli_close($con);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
