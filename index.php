@@ -265,7 +265,7 @@ mysqli_close($con);
                 <p>Fotos selecionadas da Azul Turquesa</p><br>
                 <a href="./app/fotos.php" alt="Fotos da Azul Turquesa">Ler mais</a>
                 <br><br>
-                <hr>
+                <!-- último não leva barra hr -->
             
         </div>
         
@@ -336,7 +336,6 @@ mysqli_close($con);
     <br>
     
     </aside>
-
 
     <footer> <p>&copy; 2025 Azul Turquesa. Todos os direitos reservados.</p></footer>
 

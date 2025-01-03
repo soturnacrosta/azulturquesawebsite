@@ -268,7 +268,63 @@ mysqli_close($con);
         </div>
         
     </main>
-    <aside>Relacionados</aside>
+    
+    <aside>
+
+        <h3>Últimos posts</h3><br>
+
+        <a href="./sobre_nos.php" alt="Sobre nós">Sobre nós</a>
+            <ul>
+                <li>História da banda</li>
+                <li>Curiosidades</li>
+                <li>Membros</li>
+            </ul>
+        <br>
+        <hr>
+        <br>
+
+        <a href="./downloads.php" alt="Downloads">Downloads</a>
+            <ul>
+                <li>Downloads das músicas</li>
+                <li>Gratuito</li>
+                <li>Boa qualidade</li>
+            </ul>
+        <br>
+        <hr>
+        <br>
+
+        <a href="./onde_ouvir.php" alt="Onde nos ouvir">Onde nos ouvir</a>
+            <ul>
+                <li>Links da banda</li>
+                <li>Streaming gratuito e pago</li>
+                <li>Várias opções</li>
+            </ul>
+        <br>
+        <hr>
+        <br>
+
+        <a href="./letras.php" alt="Letras">Letras de nossas músicas</a>
+            <ul>
+                <li>Links da banda</li>
+                <li>Letras de nossas músicas</li>
+                <li>Todas em um único lugar</li>
+            </ul>
+        <br>
+        <hr>
+        <br>
+
+        <a href="./fotos.php" alt="Fotos">Galeria de fotos</a>
+            <ul>
+                <li>Fotos da banda</li>
+                <li>Ensaios fotográficos</li>
+                <li>Todas as formações</li>
+            </ul>
+        <br>
+        <hr>
+        <br>
+
+</aside>
+
     <footer> <p>&copy; 2025 Azul Turquesa. Todos os direitos reservados.</p></footer>
 
 </body>
