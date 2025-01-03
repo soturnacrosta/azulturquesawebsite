@@ -126,6 +126,14 @@ mysqli_close($con);
     <title>Azul Turquesa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
+
+    <style>
+        p {
+            word-break: break-word; /*para colocar hífens e quebra automatica de linha */
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -225,47 +233,60 @@ mysqli_close($con);
     <main>
         
         <div class="mainpage-container">
-                <h2>Sobre nós</h2><br>
+
+            <h2>Sobre nós</h2><br>
+            <div class="mainpage-container1">
                 <img src="./assets/img/materias/sobre_nos/soturna-azulTurquesa.jpg" alt="Soturna Crosta da banda de black metal paraibana Azul Turquesa"  width="300" height="auto" class="left-img"><br>
                 <p>Azul Turquesa é uma one man band paraibana de Doom e Black Metal que experimenta novas formas de fazer som a cada lançamento. Explorando o contraste entre a brutalidade e crueza do Black Metal e
                     a beleza e soturnez do Doom Metal, Azul Turquesa aborda questões existenciais e depressão, além de romances e histórias de horror.<br>
                     A banda foi originalmente formada no dia 30 de novembro de 2021 quando fora lançada a demo intitulada AZUL TURQUESA (DEMO) contendo as faixas Obsessão (DEMO) e Mal Encorpado (DEMO). Embora formada nessa data, a banda já 
-                    viera sendo planejada pelo membro fundador Mailton "Soturna Cröstä" Lemos.</p><br>
-                <a href="./app/sobre_nos.php" alt="Sobre nós">Ler mais</a>
-                <br><br>
-                <hr>
-                
-                <br>
-                <h2>Downloads</h2><br>
+                    viera sendo planejada pelo membro fundador Mailton "Soturna Cröstä" Lemos.<br><br>
+                <a href="./app/sobre_nos.php" alt="Sobre nós">Ler mais</a></p>
+            </div>
+            <br><br>
+            <hr>
+
+            <br>
+            <h2>Downloads</h2><br>
+            <div class="mainpage-container2">
                 <img src="./assets/img/materias/downloads/Pusilanime-Azul-Turquesa.jpg" alt="Pusilânime capa Azul Turquesa"  width="300" height="auto" class="left-img"><br>
-                <p>Aqui fica disponível para Download gratuito alguns trabalhos da Azul Turquesa em boa qualidade para todos curtirem.</p><br>
-                <a href="./app/downloads.php" alt="Downloads">Ler mais</a>
-                <br><br>
-                <hr>
+                <p>Aqui fica disponível para Download gratuito alguns trabalhos da Azul Turquesa em boa qualidade para todos curtirem.<br><br>
+                <a href="./app/downloads.php" alt="Downloads">Ler mais</a></p>
+            </div>
+            <br><br>
+            <hr>
 
-                <br>
-                <h2>Onde nos ouvir</h2><br>
+            
+            <br>
+            <h2>Onde nos ouvir</h2><br>
+            <div class="mainpage-container3">
                 <img src="./assets/img/materias/galeria_de_fotos/azul-turquesa-logo-branco.png" alt="Azul Turquesa logo"  width="300" height="auto" class="left-img"><br>
-                <p>Alguns dos links da banda reunidos.</p><br>
-                <a href="./app/onde_ouvir.php" alt="Onde ouvir">Ler mais</a>
-                <br><br>
-                <hr>
+                <p>Alguns dos links da banda reunidos.</br><br>
+                <a href="./app/onde_ouvir.php" alt="Onde ouvir">Ler mais</a></p>
+            </div>
+            <br><br>
+            <hr>
 
-                <br>
-                <h2>Letras de nossas músicas</h2><br>
+
+            <br>
+            <h2>Letras de nossas músicas</h2><br>
+            <div class="mainpage-container4">
                 <img src="./assets/img/materias/galeria_de_fotos/azul-turquesa-logo-branco.png" alt="Azul Turquesa logo"  width="300" height="auto" class="left-img"><br>
-                <p>Letras de todas as músicas da Azul Turquesa lançadas até agora, reunidas em um só lugar.</p><br>
-                <a href="./app/letras.php" alt="Letras da Azul Turquesa">Ler mais</a>
-                <br><br>
-                <hr>
-
-                <br>
-                <h2>Galeria de fotos</h2><br>
+                <p>Letras de todas as músicas da Azul Turquesa lançadas até agora, reunidas em um só lugar.<br><br>
+                <a href="./app/letras.php" alt="Letras da Azul Turquesa">Ler mais</a></p>
+            </div>
+            <br><br>
+            <hr>
+                
+            <br>
+            <h2>Galeria de fotos</h2><br>
+            <div class="mainpage-container5">
                 <img src="./assets/img/materias/galeria_de_fotos/primeira-formacao-azul-turquesa.jpeg" alt="Azul Turquesa primeira formação"  width="300" height="auto" class="left-img"><br>
-                <p>Fotos selecionadas da Azul Turquesa</p><br>
-                <a href="./app/fotos.php" alt="Fotos da Azul Turquesa">Ler mais</a>
+                <p>Fotos selecionadas da Azul Turquesa<br>
+                <a href="./app/fotos.php" alt="Fotos da Azul Turquesa">Ler mais</a></p><br>
                 <br><br>
                 <!-- último não leva barra hr -->
+            </div>
             
         </div>
         

@@ -145,6 +145,43 @@ main a {
         padding: 10px;
     }
 
+    .mainpage-container .mainpage-container1 {
+        display: flex;  
+        align-items: center;
+        
+    }
+
+    .mainpage-container .mainpage-container2 {
+        display: flex;  
+        align-items: center;
+        
+    }
+
+    .mainpage-container .mainpage-container3 {
+        display: flex;  
+        align-items: center;
+        
+    }
+
+    .mainpage-container .mainpage-container4 {
+        display: flex;  
+        align-items: center;
+        
+    }
+
+    .mainpage-container .mainpage-container5 {
+        display: flex;  
+        align-items: center;
+        
+    }
+
+
+
+    .left-img {
+        margin-right: 20px; /* Ajuste o valor conforme necessário */
+    }
+    
+
 h1 {
     margin-top: 0; /* Remove qualquer margem extra no topo do título */
     margin-bottom: 20px; /* Espaço abaixo do título */
