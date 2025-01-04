@@ -142,12 +142,14 @@ mysqli_close($con);
         
     </header>
         <nav aria-label="Navegação primávia">
+
             <ul>
                 <legend><b>Menu</b></legend>
 
                 <li>
-                    <a href="./index.php">Página inicial</a>
+                    <a href="./index.php">Página inicial</a> 
                 </li>
+
 
                 <li>
                     <a href="./app/sobre_nos.php">Sobre nós</a>

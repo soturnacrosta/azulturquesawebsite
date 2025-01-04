@@ -44,6 +44,17 @@ nav a {
     text-decoration: none;
     margin: 5px;
     gap: 20px;
+    padding: 5px 10px; /* Área clicável */
+    border: 1px solid transparent; /* Cria um "efeito de espaço" sem bordas visíveis */
+
+
+}
+
+nav li {
+    
+    display: block; /* Garante que a área clicável ocupe toda a linha */
+    padding: 10px 15px; /* Ajusta o espaço interno para ampliar a área clicável */
+
 }
 
     /* Estilizando o fieldset */
@@ -174,8 +185,6 @@ main a {
         align-items: center;
         
     }
-
-
 
     .left-img {
         margin-right: 20px; /* Ajuste o valor conforme necessário */
